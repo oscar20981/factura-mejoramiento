@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invoice Template - Responsive (b1/b2 como original)</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --accent: #f2c200;
+      --dark: #2f3336;
+      --muted: #6b6b6b;
+      --card-max-width: 900px;
+      --padding-x: 36px;
+      --table-head-bg: #32373b;
+      --border-color: #e6e6e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      line-height: 1.4;
+    }
+
+    body {
+      font-family: "Roboto", sans-serif;
+      display: flex;
+      justify-content: center;
+      background-color: #f7f7f7;
+      padding: 32px 16px;
+      color: var(--dark);
+    }
+
+    /* Card */
+    .general {
+      width: 100%;
+      max-width: var(--card-max-width);
+      background: #ffffff;
+      box-shadow: 0 18px 40px rgba(34, 34, 34, 0.08);
+      position: relative;
+      padding-bottom: 20px;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    /* Header / brand */
+    .f1 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 20px var(--padding-x) 12px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .f1 img {
+      width: 55px;
+      height: 55px;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
+
+    .s1 p:first-child {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      color: var(--dark);
+      line-height: 1;
+    }
+
+    .s1 p:last-child {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+      line-height: 1;
+    }
+
+    /* --- IMPORTANT: restore original layout for b1 & b2 --- */
+    /* Big invoice label with yellow bars (kept like in your original code) */
+    .f2 {
+      height: 52px;
+      width: 100%;
+      display: grid;
+      /* Replaced to match your original: left bar (b1) big, center (Invoice) narrow, right bar small.
+         This matches your original snippet where you used: 68% 22% 10% */
+      grid-template-columns: 68% 22% 10%;
+      align-items: center;
+    }
+
+    .f2 .b1,
+    .f2 .b2 {
+      height: 100%;
+      background-color: var(--accent);
+    }
+
+    .f2 .Invoice {
+      text-align: center;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      padding: 0 10px;
+      overflow: hidden;
+    }
+
+    .f2 .Invoice p {
+      font-family: "Montserrat", sans-serif;
+      font-size: 36px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      color: var(--dark);
+      margin: 0;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .f3 {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px var(--padding-x);
+      margin-top: 12px;
+      margin-bottom: 18px;
+      font-size: 13px;
+      gap: 20px;
+    }
+
+    .s2 {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .s2 p {
+      color: var(--muted);
+    }
+
+    .s2 p:first-child {
+      color: #222;
+      font-weight: 700;
+    }
+
+    .filas34 {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      justify-content: center;
+      width: 220px;
+    }
+
+    .s2 p:nth-child(2) {
+      color: var(--dark);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .s3,
+    .s4 {
+      display: flex;
+      gap: 8px;
+      justify-content: space-between;
+    }
+
+    .s3 p {
+      color: var(--muted);
+      text-align: right;
+    }
+
+    .s4 p {
+      color: var(--dark);
+      font-weight: 700;
+    }
+
+    /* Table */
+    .f4 {
+      padding: 0 var(--padding-x);
+    }
+
+    .tabla {
+      border: 2px solid var(--border-color);
+      border-radius: 4px;
+      overflow: auto; /* allow horizontal scroll on small screens as fallback */
+      -webkit-overflow-scrolling: touch;
+      background: white;
+    }
+
+    .info > div {
+      display: grid;
+      grid-template-columns: 48px 1fr 110px 110px 110px;
+      text-align: left;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 14px;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info > div:last-child {
+      border-bottom: none;
+    }
+
+    .l1 {
+      background: var(--table-head-bg);
+      color: #fff;
+      font-weight: 600;
+      font-size: 13px !important;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    .l1 > div {
+      padding: 0;
+    }
+
+    .l1a,
+    .l2a,
+    .l3a,
+    .l4a,
+    .l5a {
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .l1c,
+    .l1d,
+    .l1e,
+    .l2c,
+    .l2d,
+    .l2e,
+    .l3c,
+    .l3d,
+    .l3e,
+    .l4c,
+    .l4d,
+    .l4e,
+    .l5c,
+    .l5d,
+    .l5e {
+      text-align: right;
+    }
+
+    .l1a {
+      color: #fff;
+    }
+
+    .l3,
+    .l5 {
+      background-color: #ededed;
+    }
+
+    .l2a,
+    .l3a,
+    .l4a,
+    .l5a {
+      color: black
+    }
+
+    .l2b,
+    .l3b,
+    .l4b,
+    .l5b {
+      color: black
+    }
+
+    .relleno {
+      height: 170px;
+    }
+
+    /* Footer / totals and payment */
+    .f5 {
+      display: flex;
+      justify-content: space-between;
+      padding: 18px var(--padding-x) 0;
+      align-items: flex-start;
+      gap: 40px;
+    }
+
+    .lado1 {
+      flex: 1;
+      font-size: 13px;
+      color: var(--muted);
+      padding-right: 20px;
+    }
+
+    .lado1 p:first-child {
+      margin-bottom: 10px;
+    }
+
+    .parrafo p:first-child {
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 2px;
+    }
+
+    .lado2 {
+      width: 320px;
+      min-width: 220px;
+    }
+
+    .arriba > div {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 35px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .arriba .sub p:last-child,
+    .arriba .tax p:last-child {
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .abajo {
+      margin-top: 8px;
+      background: var(--accent);
+      padding: 12px 12px 12px 12px;
+      font-size: 18px !important;
+      font-weight: 700;
+      color: #111 !important;
+    }
+
+    .f6 {
+      padding: 18px var(--padding-x) 0;
+      font-size: 13px;
+      color: var(--muted);
+      padding-bottom: 30px;
+    }
+
+    .f6 p:first-child {
+      font-weight: 700;
+      color: gray;
+      margin-bottom: 6px;
+    }
+
+    .cositos > div {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 2px;
+    }
+
+    .cosito1 p:last-child,
+    .cosito2 p:last-child,
+    .cosito3 p:last-child {
+      font-weight: 700;
+      color: gray;
+    }
+
+    .cosito1 p:first-child,
+    .cosito2 p:first-child,
+    .cosito3 p:first-child {
+      min-width: 80px;
+    }
+
+    .f7 {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 12px var(--padding-x);
+    }
+
+    .f7 .author p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .f8 {
+      width: calc(100% - var(--padding-x) * 2);
+      display: flex;
+      align-items: center;
+      font-size: 13px;
+      color: var(--muted);
+      padding: 6px var(--padding-x) 20px;
+    }
+
+    .f8 div {
+      display: flex;
+      align-items: center;
+    }
+
+    .cosito1,
+    .cosito2,
+    .cosito3 p {
+      color: gray;
+    }
+
+    .lineaarribaa,
+    .lineaabajo {
+      display: grid;
+      grid-template-columns: 70% 20% 10%;
+      align-items: center;
+    }
+
+    .lineaarribaa p {
+      color: white;
+      height: 7px;
+    }
+
+    .lineaabajo .author {
+      display: flex;
+      justify-content: center;
+      border-top: 1px solid black;
+      margin: 0 15px;
+      padding: 5px 0 0 0;
+      color: black;
+      font-weight: bold;
+    }
+
+    .raya2 {
+      background-color: var(--accent);
+    }
+
+    .reclus {
+      gap: 70px;
+      width: 80%;
+      display: flex;
+    }
+
+    .recu1,
+    .recu2,
+    .recu3 {
+      font-size: 14px;
+      font-weight: bold;
+      color: black;
+    }
+
+    .recu2,
+    .recu3 {
+      padding: 0 0 0 40px;
+      border-left: 2px solid #111;
+    }
+
+    /* ---------------------------
+       Responsive behavior
+       --------------------------- */
+
+    /* Medium screens */
+    @media (max-width: 920px) {
+      :root {
+        --padding-x: 20px;
+      }
+
+      .f1 {
+        padding: 16px var(--padding-x) 10px;
+      }
+
+      .f2 {
+        height: 44px;
+        /* keep the original columns proportions but slightly adapt */
+        grid-template-columns: 60% 30% 10%;
+      }
+
+      .f3 {
+        padding: 10px var(--padding-x);
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .filas34 {
+        width: 180px;
+      }
+
+      .lado2 {
+        width: 260px;
+        min-width: 180px;
+      }
+
+      .info > div {
+        padding: 10px 12px;
+      }
+    }
+
+    /* Small screens: hide b1 & b2 if necessary (keeps layout clean on mobile) */
+    @media (max-width: 720px) {
+      :root {
+        --padding-x: 18px;
+      }
+
+      .f1 {
+        padding: 14px 18px;
+        gap: 10px;
+      }
+
+      .f1 img {
+        width: 48px;
+        height: 48px;
+      }
+
+      /* HERE: remove b1 & b2 for smaller screens to avoid layout issues */
+      .f2 {
+        grid-template-columns: 1fr; /* center only */
+        height: auto;
+        padding: 6px var(--padding-x);
+      }
+
+      .f2 .b1,
+      .f2 .b2 {
+        display: none;
+      }
+
+      .f2 .Invoice p {
+        font-size: 28px;
+      }
+
+      .f3 {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 18px;
+      }
+
+      .filas34 {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .f5 {
+        flex-direction: column;
+        gap: 16px;
+        padding: 14px 18px 0;
+      }
+
+      .lado2 {
+        width: 100%;
+        min-width: auto;
+      }
+
+      /* Make the table horizontally scrollable on small screens as fallback */
+      .tabla {
+        overflow: auto;
+      }
+
+      /* Slightly reduce spacing in table rows */
+      .info > div {
+        grid-template-columns: 48px 1fr 90px 70px 90px;
+        padding: 10px;
+        font-size: 13px;
+      }
+
+      .l1 {
+        font-size: 12px !important;
+      }
+
+      .f6,
+      .f8 {
+        padding: 14px 18px 18px;
+      }
+    }
+
+    /* Extra small screens: compact layout */
+    @media (max-width: 420px) {
+      :root {
+        --padding-x: 14px;
+      }
+
+      .f1 {
+        padding: 12px var(--padding-x);
+      }
+
+      .s1 p:first-child {
+        font-size: 16px;
+      }
+
+      .f2 .Invoice p {
+        font-size: 22px;
+      }
+
+      .info > div {
+        grid-template-columns: 40px 1fr 80px 60px 80px;
+        padding: 8px;
+        font-size: 12px;
+        gap: 6px;
+      }
+
+      .filas34 {
+        gap: 6px;
+        width: 100%;
+      }
+
+      .lado1 {
+        font-size: 12px;
+      }
+
+      .arriba > div {
+        padding: 8px 16px;
+        font-size: 13px;
+      }
+
+      .abajo {
+        font-size: 16px !important;
+      }
+    }
+
+    /* Ultra-small screens <=350px:
+       - we already removed b1 & b2 at <=720px; here we focus on making the table readable:
+       - transform rows (except header) into stacked "cards" so the table fits without horizontal scroll */
+    @media (max-width: 350px) {
+      :root {
+        --padding-x: 10px;
+      }
+
+      .general {
+        border-radius: 4px;
+      }
+
+      .f1 {
+        padding: 10px var(--padding-x);
+        gap: 8px;
+      }
+
+      .f1 img {
+        width: 40px;
+        height: 40px;
+      }
+
+      .f2 {
+        /* because b1/b2 were hidden at <=720px, here the f2 is single column; keep a smaller Invoice label */
+        height: 40px;
+        padding: 4px var(--padding-x);
+      }
+
+      .f2 .Invoice p {
+        font-size: 18px;
+        line-height: 1;
+        font-weight: 600;
+      }
+
+      /* Header stays compact */
+      .info > .l1 {
+        grid-template-columns: 36px 1fr 70px 50px 70px;
+        font-size: 11px !important;
+      }
+
+      /* Transform data rows into stacked cards for ultra small screens */
+      .info > div:not(.l1) {
+        display: grid;
+        grid-template-columns: 36px 1fr;
+        grid-template-areas:
+          "sl desc"
+          "price price"
+          "qty total";
+        gap: 6px 8px;
+        align-items: start;
+        border-bottom: 1px solid var(--border-color);
+        background: transparent;
+        padding: 8px;
+      }
+
+      .l2a, .l3a, .l4a, .l5a { grid-area: sl; text-align: center; color: var(--muted); }
+      .l2b, .l3b, .l4b, .l5b { grid-area: desc; color: var(--dark); font-weight: 600; }
+      .l2c, .l3c, .l4c, .l5c { grid-area: price; justify-self: start; color: var(--muted); }
+      .l2d, .l3d, .l4d, .l5d { grid-area: qty; justify-self: start; color: var(--muted); }
+      .l2e, .l3e, .l4e, .l5e { grid-area: total; justify-self: end; color: var(--dark); font-weight: 700; }
+
+      /* typography tweaks for small screen */
+      .l2b, .l3b, .l4b, .l5b { font-size: 13px; }
+      .l2c, .l3c, .l4c, .l5c,
+      .l2d, .l3d, .l4d, .l5d,
+      .l2e, .l3e, .l4e, .l5e { font-size: 12px; }
+
+      .lado1 { font-size: 12px; }
+      .lado2 { width: 100%; }
+      .arriba > div { padding: 6px 12px; font-size: 12px; }
+      .abajo { font-size: 16px !important; padding: 10px; }
+
+      .f6, .f8 { padding: 10px var(--padding-x) 14px; }
+      .reclus { width: 100%; gap: 18px; }
+      .recu2, .recu3 { padding-left: 16px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="general">
+    <div class="f1">
+      <img src="logo.png" alt="Brand Logo">
+      <div class="s1">
+        <p>Brand Name</p>
+        <p>TAGLINE SPACE HERE</p>
+      </div>
+    </div>
+
+    <!-- f2: kept exactly like your original structure (b1, Invoice, b2).
+         At small widths (<=720px) the bars are hidden to keep the Invoice readable. -->
+    <div class="f2" role="group" aria-label="Invoice header">
+      <div class="b1" aria-hidden="true"></div>
+      <div class="Invoice">
+        <p>INVOICE</p>
+      </div>
+      <div class="b2" aria-hidden="true"></div>
+    </div>
+
+    <div class="f3">
+      <div class="s2">
+        <p style="font-size: 25px;">Invoice to:</p>
+        <p style="font-size: 15px;">Dwyane Clark</p>
+        <p>24 Dummy Street Ares.</p>
+        <p>Location. Lorem Ipsum.</p>
+        <p>570xx59x</p>
+      </div>
+
+      <div class="filas34">
+        <div class="s3">
+          <p style="color:black">Invoice#</p>
+          <p style="color:gray">52148</p>
+        </div>
+        <div class="s4">
+          <p>Date</p>
+          <p style="color:gray">01 / 02 / 2020</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="f4">
+      <div class="tabla" role="table" aria-label="Invoice items">
+        <div class="info">
+          <div class="l1">
+            <div class="l1a">SL.</div>
+            <div class="l1b">Item Description</div>
+            <div class="l1c">Price</div>
+            <div class="l1d">Qty.</div>
+            <div class="l1e">Total</div>
+          </div>
+
+          <div class="l2">
+            <div class="l2a">1</div>
+            <div class="l2b">Lorem ipsum Dolor</div>
+            <div class="l2c">$50.00</div>
+            <div class="l2d">1</div>
+            <div class="l2e">$50.00</div>
+          </div>
+
+          <div class="l3">
+            <div class="l3a">2</div>
+            <div class="l3b">Pellentesque id neque liguia</div>
+            <div class="l3c">$20.00</div>
+            <div class="l3d">3</div>
+            <div class="l3e">$60.00</div>
+          </div>
+
+          <div class="l4">
+            <div class="l4a">3</div>
+            <div class="l4b">Interdum et malesuada fames</div>
+            <div class="l4c">$10.00</div>
+            <div class="l4d">2</div>
+            <div class="l4e">$20.00</div>
+          </div>
+
+          <div class="l5">
+            <div class="l5a">4</div>
+            <div class="l5b">Vivamus volutpat faucibus</div>
+            <div class="l5c">$90.00</div>
+            <div class="l5d">1</div>
+            <div class="l5e">$90.00</div>
+          </div>
+        </div>
+        <div class="relleno" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="f5">
+      <div class="lado1">
+        <p style="color:black; font-weight: bold; margin-bottom: 18px;">Thank you for your business</p>
+        <div class="parrafo">
+          <p>Terms & Conditions</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. fesce eligmls prellurn cernecielu</p>
+        </div>
+      </div>
+
+      <div class="lado2">
+        <div class="arriba">
+          <div class="sub">
+            <p style="color: black; font-weight: 500;">Sub Total:</p>
+            <p>$220.00</p>
+          </div>
+          <div class="tax">
+            <p style="color: black; font-weight: 500;">Tax:</p>
+            <p>0.00%</p>
+          </div>
+          <div class="abajo">
+            <p>Total:</p>
+            <p>$220.00</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="f6">
+      <p style="color: black; font-size: 15px;">Payment Info:</p>
+      <div class="cositos">
+        <div class="cosito1">
+          <p>Account #:</p>
+          <p>1234 4670 9012</p>
+        </div>
+        <div class="cosito2">
+          <p>Bank Name:</p>
+          <p>Bank Name</p>
+        </div>
+        <div class="cosito3">
+          <p>Bank Details:</p>
+          <p>Add your bank details</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="f7">
+      <div class="lineaarribaa">
+        <div class="raya1" style="height: 6px;"></div>
+        <div class="author">
+          <p style="color: white;">Authorised Sign</p>
+        </div>
+        <div class="raya2" style="height: 6px;"></div>
+      </div>
+      <div class="lineaabajo">
+        <div class="raya1222" style="color: white;"></div>
+        <div class="author">
+          <p>Authorised Sign</p>
+        </div>
+        <div class="raya2222" style="color: white;"></div>
+      </div>
+    </div>
+
+    <div class="f8">
+      <div class="reclus">
+        <div class="recu1">
+          <p>Phone # </p>
+        </div>
+        <div class="recu2">
+          <p>Address</p>
+        </div>
+        <div class="recu3">
+          <p>Website</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
